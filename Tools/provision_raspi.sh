@@ -358,7 +358,7 @@ command="${command}"'mkdir -p '"${keyValueStore}"' && '
 if (( ! supportsDisplay )); then
     command="${command}"'echo -n "'"${srpSalt}${srpVerifier}"'" | '
     # shellcheck disable=SC2016
-    command="${command}"'perl -ne '"'"'s/([0-9a-f]{2})/print chr hex $1/gie'"'"' > '"${setupInfoFile}"' && '
+    command="${command}"'sed "'"s/.\{60\}/&\n/g"'" | sed y/ABCDEF/abcdef/ | xxd -p -r > '"${setupInfoFile}"' && '
     if (( supportsProgrammableNFC )); then
         command="${command}"'echo -en "'"${setupCode}"'\0" > '"${setupCodeFile}"' && '
     fi
@@ -367,10 +367,10 @@ command="${command}"'echo -en "'"${setupID}"'\0" > '"${setupIDFile}"' && '
 if [ "${mfiTokenUUID}" != "" ] && [ "${mfiToken}" != "" ]; then
     command="${command}"'echo -n "'"${mfiTokenUUID}"'" | '
     # shellcheck disable=SC2016
-    command="${command}"'perl -ne '"'"'s/([0-9a-f]{2})/print chr hex $1/gie'"'"' > '"${mfiTokenUUIDFile}"' && '
+    command="${command}"'sed "'"s/.\{60\}/&\n/g"'" | sed y/ABCDEF/abcdef/ | xxd -p -r > '"${mfiTokenUUIDFile}"' && '
     command="${command}"'echo -n "'"${mfiToken}"'" | '
     # shellcheck disable=SC2016
-    command="${command}"'perl -ne '"'"'s/([0-9a-f]{2})/print chr hex $1/gie'"'"' > '"${mfiTokenFile}"' && '
+    command="${command}"'sed "'"s/.\{60\}/&\n/g"'" | sed y/ABCDEF/abcdef/ | xxd -p -r > '"${mfiTokenFile}"' && '
 fi
 command="${command}"'true'
 
