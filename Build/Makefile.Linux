@@ -1,5 +1,5 @@
 
-CC := clang
+CC ?= clang
 AR := ar
 COMPILER := $(shell $(CC) --version | grep "Target:" | cut -d ' ' -f 2)
 DEBUGGER := gdb
@@ -10,7 +10,7 @@ CRYPTO_Linux := PAL/Crypto/OpenSSL
 CFLAGS_Linux := $(CFLAGS_IP) -ffunction-sections -fdata-sections
 LDFLAGS_Linux := -ldns_sd -pthread -lm
 ifeq ($(BUILD_TYPE),Release)
-    LDFLAGS_Linux += -Wl,--gc-sections -Wl,--as-needed -Wl,--strip-all
+    LDFLAGS_Linux += -Wl,--gc-sections -Wl,--as-needed
 endif
 
 LINK_BEGIN_Linux := -Wl,--start-group

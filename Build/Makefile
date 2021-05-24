@@ -42,13 +42,13 @@ CFLAGS_Debug := -O0 -g -DHAP_LOG_LEVEL=$(LOG_LEVEL_Debug) -DHAP_TESTING
 CFLAGS_Test :=  -O0 -g -DHAP_LOG_LEVEL=$(LOG_LEVEL_Test) -DHAP_TESTING
 CFLAGS_Release := -O2 -g -DHAP_LOG_LEVEL=$(LOG_LEVEL_Release) -DHAP_DISABLE_ASSERTS=1 -DHAP_DISABLE_PRECONDITIONS=1
 
-OPENSSL_PATH = $(firstword $(wildcard /usr/local/Cellar/openssl@1.1/*))
+OPENSSL_PATH =
 MBEDTLS_PATH = $(firstword $(wildcard /usr/include/mbedtls) $(wildcard /usr/local/Cellar/mbedtls/*))
 
 -include Build/Makefile.$(PAL)
 
-CFLAGS_OpenSSL := -I$(OPENSSL_PATH)/include
-LDFLAGS_OpenSSL := -L$(OPENSSL_PATH)/lib -lcrypto
+CFLAGS_OpenSSL :=
+LDFLAGS_OpenSSL := -lcrypto
 
 CFLAGS_MbedTLS := -I$(MBEDTLS_PATH)/include
 LDFLAGS_MbedTLS := -L$(MBEDTLS_PATH)/lib -lmbedcrypto
